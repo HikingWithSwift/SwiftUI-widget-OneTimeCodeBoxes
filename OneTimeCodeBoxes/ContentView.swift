@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    static let codeDigits = 6
+    @State
+    var codeDict = Dictionary<Int, String>(uniqueKeysWithValues: (0..<codeDigits).map{ ($0, "") })
+    // [0:"", 1:"", ..., 5:""]
+    @State
+    var firstResponderIndex = 0
+    
     var body: some View {
         VStack(spacing: 40) {
             Text("Hello, OneTimeCodeBoxes!")
