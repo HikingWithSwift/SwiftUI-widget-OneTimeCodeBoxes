@@ -24,12 +24,8 @@ struct ContentView: View {
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity)
             
-            TextField("To be replaced", text: .constant(""))
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke()
-                            .foregroundColor(.secondary))
-                .frame(height: 60)
+            OneTimeCodeBoxes(codeDict: $codeDict,
+                             firstResponderIndex: $firstResponderIndex)
                 .padding()
             
             Button(action: {}, label: {

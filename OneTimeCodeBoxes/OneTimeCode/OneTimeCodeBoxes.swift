@@ -8,13 +8,38 @@
 import SwiftUI
 
 struct OneTimeCodeBoxes: View {
+    
+    @Binding var codeDict: [Int: String]
+    @Binding var firstResponderIndex: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            ForEach(0..<codeDict.count) { i in
+                OneTimeCodeInput(
+                    index: i,
+                    codeDict: $codeDict,
+                    firstResponderIndex: $firstResponderIndex
+                )
+                .aspectRatio(1, contentMode: .fit)
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(lineWidth: 1)
+                            .foregroundColor(.secondary))
+            }
+        }
     }
 }
 
 struct OneTimeCodeBoxes_Previews: PreviewProvider {
     static var previews: some View {
-        OneTimeCodeBoxes()
+        OneTimeCodeBoxes(codeDict: .constant([0: "", 1: "", 2: "", 3: ""]),
+                         firstResponderIndex: .constant(0))
+            .padding()
+            .previewLayout(.sizeThatFits)
+        
+        OneTimeCodeBoxes(codeDict: .constant([0: "", 1: "", 2: ""]),
+                         firstResponderIndex: .constant(0))
+            .preferredColorScheme(.dark)
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }

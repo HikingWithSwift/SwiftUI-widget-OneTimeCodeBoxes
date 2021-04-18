@@ -19,10 +19,12 @@ struct OneTimeCodeInput: UIViewRepresentable {
     class Coordinator: NSObject, UITextFieldDelegate {
         let index: Int
         @Binding var codeDict: [Int: String]
+        @Binding var firstResponderIndex: Int
         
-        init(index: Int, codeDict: Binding<[Int: String]>) {
+        init(index: Int, codeDict: Binding<[Int: String]>, firstResponderIndex: Binding<Int>) {
             self.index = index
             self._codeDict = codeDict
+            self._firstResponderIndex = firstResponderIndex
         }
         
         func textField(_ textField: UITextField,
@@ -35,13 +37,19 @@ struct OneTimeCodeInput: UIViewRepresentable {
             
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
             
+            // 3. deleting
+            if string.isBackspace {
+                codeDict.updateValue("", forKey: index)
+                firstResponderIndex = max(0, index - 1)
+                return false
+            }
+            
             // 1. typing
             // 2. pasting
             for i in index..<min(codeDict.count, index + string.count) {
                 codeDict.updateValue(string.stringAt(index: i - index), forKey: i)
+                firstResponderIndex = min(codeDict.count - 1, index + string.count)
             }
-            
-            // 3. deleting
             
             
             return false
@@ -50,7 +58,7 @@ struct OneTimeCodeInput: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        .init(index: index, codeDict: $codeDict)
+        .init(index: index, codeDict: $codeDict, firstResponderIndex: $firstResponderIndex)
     }
     
     // MARK: - Required Methods
