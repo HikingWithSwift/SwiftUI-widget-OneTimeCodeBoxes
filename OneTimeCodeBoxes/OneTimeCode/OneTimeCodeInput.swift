@@ -57,6 +57,27 @@ struct OneTimeCodeInput: UIViewRepresentable {
         
     }
     
+    class BackspaceTextField: UITextField {
+        
+        var onDelete: (()->Void)?
+        
+        init(onDelete: (()->Void)?) {
+            self.onDelete = onDelete
+            
+            super.init(frame: .zero)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func deleteBackward() {
+            super.deleteBackward()
+            
+            onDelete?()
+        }
+    }
+    
     func makeCoordinator() -> Coordinator {
         .init(index: index, codeDict: $codeDict, firstResponderIndex: $firstResponderIndex)
     }
@@ -64,7 +85,9 @@ struct OneTimeCodeInput: UIViewRepresentable {
     // MARK: - Required Methods
     
     func makeUIView(context: Context) -> UITextField {
-        let tf = UITextField()
+        let tf = BackspaceTextField(onDelete: {
+            firstResponderIndex = max(0, index - 1)
+        })
         tf.delegate = context.coordinator
         tf.keyboardType = .numberPad
         tf.textContentType = .oneTimeCode
