@@ -13,6 +13,7 @@
 		CD41DE522622737F00A20FBB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD41DE512622737F00A20FBB /* Preview Assets.xcassets */; };
 		CD87408D262BDBF9006580C4 /* OneTimeCodeBoxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87408C262BDBF9006580C4 /* OneTimeCodeBoxes.swift */; };
 		CD874090262BDC19006580C4 /* OneTimeCodeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87408F262BDC19006580C4 /* OneTimeCodeInput.swift */; };
+		CDDFFD58262CACBA00DCE037 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDFFD57262CACBA00DCE037 /* String+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		CD41DE532622737F00A20FBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD87408C262BDBF9006580C4 /* OneTimeCodeBoxes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeCodeBoxes.swift; sourceTree = "<group>"; };
 		CD87408F262BDC19006580C4 /* OneTimeCodeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeCodeInput.swift; sourceTree = "<group>"; };
+		CDDFFD57262CACBA00DCE037 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				CD41DE4C2622737F00A20FBB /* ContentView.swift */,
 				CD87408B262BDBE0006580C4 /* OneTimeCode */,
 				CD41DE4E2622737F00A20FBB /* Assets.xcassets */,
+				CDDFFD56262CACAA00DCE037 /* Utils */,
 				CD41DE532622737F00A20FBB /* Info.plist */,
 				CD41DE502622737F00A20FBB /* Preview Content */,
 			);
@@ -81,6 +84,14 @@
 				CD87408F262BDC19006580C4 /* OneTimeCodeInput.swift */,
 			);
 			path = OneTimeCode;
+			sourceTree = "<group>";
+		};
+		CDDFFD56262CACAA00DCE037 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CDDFFD57262CACBA00DCE037 /* String+.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +165,7 @@
 			files = (
 				CD87408D262BDBF9006580C4 /* OneTimeCodeBoxes.swift in Sources */,
 				CD874090262BDC19006580C4 /* OneTimeCodeInput.swift in Sources */,
+				CDDFFD58262CACBA00DCE037 /* String+.swift in Sources */,
 				CD41DE4D2622737F00A20FBB /* ContentView.swift in Sources */,
 				CD41DE4B2622737F00A20FBB /* OneTimeCodeBoxesApp.swift in Sources */,
 			);
