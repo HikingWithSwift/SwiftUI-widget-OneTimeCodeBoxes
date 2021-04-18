@@ -17,11 +17,40 @@ struct OneTimeCodeInput: UIViewRepresentable {
     // MARK: - Internal Type
     
     class Coordinator: NSObject, UITextFieldDelegate {
+        let index: Int
+        @Binding var codeDict: [Int: String]
+        
+        init(index: Int, codeDict: Binding<[Int: String]>) {
+            self.index = index
+            self._codeDict = codeDict
+        }
+        
+        func textField(_ textField: UITextField,
+                       shouldChangeCharactersIn range: NSRange,
+                       replacementString string: String) -> Bool
+        {
+            let currentText = textField.text ?? ""
+            
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            // 1. typing
+            // 2. pasting
+            for i in index..<min(codeDict.count, index + string.count) {
+                codeDict.updateValue(string.stringAt(index: i - index), forKey: i)
+            }
+            
+            // 3. deleting
+            
+            
+            return false
+        }
         
     }
     
     func makeCoordinator() -> Coordinator {
-        .init()
+        .init(index: index, codeDict: $codeDict)
     }
     
     // MARK: - Required Methods
