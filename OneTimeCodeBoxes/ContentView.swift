@@ -25,7 +25,10 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
             
             OneTimeCodeBoxes(codeDict: $codeDict,
-                             firstResponderIndex: $firstResponderIndex)
+                             firstResponderIndex: $firstResponderIndex,
+                             onCommit: {
+                                print("commit!")
+                             })
                 .padding()
             
             Button(action: {}, label: {

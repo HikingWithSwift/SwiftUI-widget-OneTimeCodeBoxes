@@ -13,6 +13,7 @@ struct OneTimeCodeInput: UIViewRepresentable {
     let index: Int
     @Binding var codeDict: [Int: String]
     @Binding var firstResponderIndex: Int
+    var onCommit: (()->Void)?
     
     // MARK: - Internal Type
     
@@ -101,6 +102,12 @@ struct OneTimeCodeInput: UIViewRepresentable {
         
         if index == firstResponderIndex {
             uiView.becomeFirstResponder()
+        }
+        
+        if index == firstResponderIndex,
+            codeDict.values.filter({ !$0.isEmpty }).count == codeDict.count
+        {
+            onCommit?()
         }
     }
     

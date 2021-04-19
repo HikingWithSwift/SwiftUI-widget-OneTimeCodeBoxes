@@ -11,6 +11,7 @@ struct OneTimeCodeBoxes: View {
     
     @Binding var codeDict: [Int: String]
     @Binding var firstResponderIndex: Int
+    var onCommit: (()->Void)?
     
     var body: some View {
         HStack {
@@ -18,7 +19,8 @@ struct OneTimeCodeBoxes: View {
                 OneTimeCodeInput(
                     index: i,
                     codeDict: $codeDict,
-                    firstResponderIndex: $firstResponderIndex
+                    firstResponderIndex: $firstResponderIndex,
+                    onCommit: onCommit
                 )
                 .aspectRatio(1, contentMode: .fit)
                 .overlay(RoundedRectangle(cornerRadius: 10)
