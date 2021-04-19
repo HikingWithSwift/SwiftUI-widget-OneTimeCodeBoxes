@@ -16,6 +16,8 @@ struct OneTimeCodeBoxes: View {
     var body: some View {
         HStack {
             ForEach(0..<codeDict.count) { i in
+                let isEmpty = codeDict[i]?.isEmpty == true
+                
                 OneTimeCodeInput(
                     index: i,
                     codeDict: $codeDict,
@@ -24,8 +26,8 @@ struct OneTimeCodeBoxes: View {
                 )
                 .aspectRatio(1, contentMode: .fit)
                 .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 1)
-                            .foregroundColor(.secondary))
+                            .stroke(lineWidth: isEmpty ? 1 : 2)
+                            .foregroundColor(isEmpty ? .secondary : .green))
             }
         }
     }
@@ -38,7 +40,7 @@ struct OneTimeCodeBoxes_Previews: PreviewProvider {
             .padding()
             .previewLayout(.sizeThatFits)
         
-        OneTimeCodeBoxes(codeDict: .constant([0: "", 1: "", 2: ""]),
+        OneTimeCodeBoxes(codeDict: .constant([0: "1", 1: "2", 2: ""]),
                          firstResponderIndex: .constant(0))
             .preferredColorScheme(.dark)
             .padding()
