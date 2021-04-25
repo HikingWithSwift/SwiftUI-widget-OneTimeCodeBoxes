@@ -10,7 +10,7 @@ import SwiftUI
 struct OneTimeCodeBoxes: View {
     
     @Binding var codeDict: [Int: String]
-    @Binding var firstResponderIndex: Int
+    @State var firstResponderIndex = 0
     var onCommit: (()->Void)?
     
     var body: some View {
@@ -35,13 +35,11 @@ struct OneTimeCodeBoxes: View {
 
 struct OneTimeCodeBoxes_Previews: PreviewProvider {
     static var previews: some View {
-        OneTimeCodeBoxes(codeDict: .constant([0: "", 1: "", 2: "", 3: ""]),
-                         firstResponderIndex: .constant(0))
+        OneTimeCodeBoxes(codeDict: .constant([0: "", 1: "", 2: "", 3: ""]))
             .padding()
             .previewLayout(.sizeThatFits)
         
-        OneTimeCodeBoxes(codeDict: .constant([0: "1", 1: "2", 2: ""]),
-                         firstResponderIndex: .constant(0))
+        OneTimeCodeBoxes(codeDict: .constant([0: "1", 1: "2", 2: ""]))
             .preferredColorScheme(.dark)
             .padding()
             .previewLayout(.sizeThatFits)

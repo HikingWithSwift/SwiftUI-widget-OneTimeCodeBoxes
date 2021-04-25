@@ -13,8 +13,11 @@ struct ContentView: View {
     @State
     var codeDict = Dictionary<Int, String>(uniqueKeysWithValues: (0..<codeDigits).map{ ($0, "") })
     // [0:"", 1:"", ..., 5:""]
-    @State
-    var firstResponderIndex = 0
+    
+    var code: String {
+        codeDict.sorted(by: { $0.key < $1.key }).map(\.value).joined()
+    }
+    
     
     var body: some View {
         VStack(spacing: 40) {
@@ -25,10 +28,10 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
             
             OneTimeCodeBoxes(codeDict: $codeDict,
-                             firstResponderIndex: $firstResponderIndex,
                              onCommit: {
-                                print("commit!")
+                                print(code)
                              })
+                .onChange(of: codeDict, perform: { _ in })
                 .padding()
             
             Button(action: {}, label: {

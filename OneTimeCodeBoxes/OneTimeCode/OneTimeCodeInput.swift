@@ -43,6 +43,7 @@ struct OneTimeCodeInput: UIViewRepresentable {
             // 2. pasting
             for i in index..<min(codeDict.count, index + string.count) {
                 codeDict.updateValue(string.stringAt(index: i - index), forKey: i)
+//                print(codeDict)
                 firstResponderIndex = min(codeDict.count - 1, index + string.count)
             }
             
