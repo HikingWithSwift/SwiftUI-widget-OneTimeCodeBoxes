@@ -53,7 +53,7 @@ struct OneTimeCodeInput: UIViewRepresentable {
             // 3. deleting
             if string.isBackspace {
                 codeDict.updateValue("", forKey: index)
-                firstResponderIndex = max(0, index - 1)
+                firstResponderIndex = max(0, textField.text == "" ? index - 1 : index)
                 return false
             }
             
