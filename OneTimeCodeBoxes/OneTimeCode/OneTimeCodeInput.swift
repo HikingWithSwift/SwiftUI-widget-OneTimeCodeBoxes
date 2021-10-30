@@ -53,27 +53,6 @@ struct OneTimeCodeInput: UIViewRepresentable {
         
     }
     
-    class BackspaceTextField: UITextField {
-        
-        var onDelete: (()->Void)?
-        
-        init(onDelete: (()->Void)?) {
-            self.onDelete = onDelete
-            
-            super.init(frame: .zero)
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        override func deleteBackward() {
-            super.deleteBackward()
-            
-            onDelete?()
-        }
-    }
-    
     func makeCoordinator() -> Coordinator {
         .init(index: index, codeDict: $codeDict, firstResponderIndex: $firstResponderIndex)
     }
@@ -103,6 +82,35 @@ struct OneTimeCodeInput: UIViewRepresentable {
             codeDict.values.filter({ !$0.isEmpty }).count == codeDict.count
         {
             onCommit?()
+        }
+    }
+    
+}
+
+
+// MARK: - Backspace Textfield
+
+extension OneTimeCodeInput {
+    
+    
+    class BackspaceTextField: UITextField {
+        
+        var onDelete: (()->Void)?
+        
+        init(onDelete: (()->Void)?) {
+            self.onDelete = onDelete
+            
+            super.init(frame: .zero)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func deleteBackward() {
+            super.deleteBackward()
+            
+            onDelete?()
         }
     }
     

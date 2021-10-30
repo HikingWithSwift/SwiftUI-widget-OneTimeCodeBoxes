@@ -29,7 +29,7 @@ struct ContentView: View {
             
             OneTimeCodeBoxes(codeDict: $codeDict,
                              onCommit: {
-                                print(code)
+                                print("onCommit", code)
                              })
                 .onChange(of: codeDict, perform: { _ in })
                 .padding()
