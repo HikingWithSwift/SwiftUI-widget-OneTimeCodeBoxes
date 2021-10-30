@@ -22,16 +22,34 @@ struct OneTimeCodeInput: UIViewRepresentable {
         @Binding var codeDict: [Int: String]
         @Binding var firstResponderIndex: Int
         
+        private lazy var codeDigits: Int = codeDict.count
+        
         init(index: Int, codeDict: Binding<[Int: String]>, firstResponderIndex: Binding<Int>) {
             self.index = index
             self._codeDict = codeDict
             self._firstResponderIndex = firstResponderIndex
         }
         
+        @objc func textFieldEditingChanged(_ textField: UITextField) {
+            print("textField.text!", textField.text!)
+            
+            guard textField.text!.count == codeDigits else { return }
+            
+            codeDict = textField.text!.enumerated().reduce(into: [Int: String](), { dict, tuple in
+                let (index, char) = tuple
+                dict.updateValue(String(char), forKey: index)
+            })
+            
+            firstResponderIndex = codeDigits - 1
+            
+        }
+        
         func textField(_ textField: UITextField,
                        shouldChangeCharactersIn range: NSRange,
                        replacementString string: String) -> Bool
         {
+            print("replacementString", string)
+            
             // 3. deleting
             if string.isBackspace {
                 codeDict.updateValue("", forKey: index)
@@ -48,7 +66,7 @@ struct OneTimeCodeInput: UIViewRepresentable {
             }
             
             
-            return false
+            return true
         }
         
     }
@@ -63,6 +81,7 @@ struct OneTimeCodeInput: UIViewRepresentable {
         let tf = BackspaceTextField(onDelete: {
             firstResponderIndex = max(0, index - 1)
         })
+        tf.addTarget(context.coordinator, action: #selector(Coordinator.textFieldEditingChanged), for: .editingChanged)
         tf.delegate = context.coordinator
         tf.keyboardType = .numberPad
         tf.textContentType = .oneTimeCode
